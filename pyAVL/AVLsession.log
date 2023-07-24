@@ -1,0 +1,102 @@
+
+ ===================================================
+  Athena Vortex Lattice  Program      Version  3.40
+  Copyright (C) 2002   Mark Drela, Harold Youngren
+
+  This software comes with ABSOLUTELY NO WARRANTY,
+    subject to the GNU General Public License.
+
+  Caveat computor
+ ===================================================
+
+ ==========================================================
+   Quit    Exit program
+
+  .OPER    Compute operating-point run cases
+  .MODE    Eigenvalue analysis of run cases
+  .TIME    Time-domain calculations
+
+   LOAD f  Read configuration input file
+   MASS f  Read mass distribution file
+   CASE f  Read run case file
+
+   CINI    Clear and initialize run cases
+   MSET i  Apply mass file data to stored run case(s)
+
+  .PLOP    Plotting options
+   NAME s  Specify new configuration name
+
+ AVL   c>  
+ Reading file: Models/Planes/a/a.avl  ...
+
+ Configuration: a                                                           
+
+   Building surface: wing                                    
+     Reading airfoil from file: Airfoils\e423.dat
+
+ File OPEN error:  Airfoils\e423.dat  
+ **   Airfoil file not found  : Airfoils\e423.dat
+ **   Using default zero-camber airfoil
+     Reading airfoil from file: Airfoils\e423.dat
+
+ File OPEN error:  Airfoils\e423.dat  
+ **   Airfoil file not found  : Airfoils\e423.dat
+ **   Using default zero-camber airfoil
+  
+   Building duplicate image-surface: wing (YDUP)                             
+
+   Building surface: hstab                                   
+     Reading airfoil from file: Airfoils\clark y inverted.dat
+
+ File OPEN error:  Airfoils\clark y
+ **   Airfoil file not found  : Airfoils\clark y inverted.dat
+ **   Using default zero-camber airfoil
+     Reading airfoil from file: Airfoils\clark y inverted.dat
+
+ File OPEN error:  Airfoils\clark y
+ **   Airfoil file not found  : Airfoils\clark y inverted.dat
+ **   Using default zero-camber airfoil
+  
+   Building duplicate image-surface: hstab (YDUP)                            
+
+   Building surface: wing                                    
+     Reading airfoil from file: Airfoils\e423.dat
+
+ File OPEN error:  Airfoils\e423.dat  
+ **   Airfoil file not found  : Airfoils\e423.dat
+ **   Using default zero-camber airfoil
+     Reading airfoil from file: Airfoils\e423.dat
+
+ File OPEN error:  Airfoils\e423.dat  
+ **   Airfoil file not found  : Airfoils\e423.dat
+ **   Using default zero-camber airfoil
+  
+   Building duplicate image-surface: wing (YDUP)                             
+
+   Building surface: hstab                                   
+     Reading airfoil from file: Airfoils\clark y inverted.dat
+
+ File OPEN error:  Airfoils\clark y
+ **   Airfoil file not found  : Airfoils\clark y inverted.dat
+ **   Using default zero-camber airfoil
+     Reading airfoil from file: Airfoils\clark y inverted.dat
+
+ File OPEN error:  Airfoils\clark y
+ **   Airfoil file not found  : Airfoils\clark y inverted.dat
+ **   Using default zero-camber airfoil
+  
+   Building duplicate image-surface: hstab (YDUP)                            
+
+ Mach =    0.0000  (default)
+
+    0 Bodies
+    8 Solid surfaces
+   96 Strips
+  768 Vortices
+
+    0 Control variables
+    0 Design parameters
+
+ Initializing run cases...
+
+ AVL   c>  

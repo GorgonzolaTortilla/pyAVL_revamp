@@ -1,0 +1,39 @@
+a
+0.0 # Mach
+0 0 0 # IYsym IZsym Zsym
+19.999999995 1.333333333 15.0 # Sref Cref Bref
+0.5 0.0 0.1 # Xref Yref Zref
+SURFACE
+wing
+8 1.0 12 1.0 # Nchordwise Cspace Nspanwise Sspace
+YDUPLICATE
+0.0 # YDUPLICATE
+ANGLE
+0.0 # ANGLE
+TRANSLATE
+0.0 0.0 0.0 # TRANSLATE
+SECTION
+0.0 0.0 0.0 1.333333333 0.0 0 0 # Xle Yle Zle Chord Ainc Nspanwise Sspace
+AFILE
+Models\Airfoils\e423.dat
+SECTION
+0.0 7.5 1.05405626 1.333333333 0.0 0 0 # Xle Yle Zle Chord Ainc Nspanwise Sspace
+AFILE
+Models\Airfoils\e423.dat
+SURFACE
+hstab
+8 1.0 12 1.0 # Nchordwise Cspace Nspanwise Sspace
+YDUPLICATE
+0.0 # YDUPLICATE
+ANGLE
+0.0 # ANGLE
+TRANSLATE
+0.0 0.0 0.0 # TRANSLATE
+SECTION
+5.2375 0.0 0.75 0.9333333333 0.0 0 0 # Xle Yle Zle Chord Ainc Nspanwise Sspace
+AFILE
+Models\Airfoils\clark.dat
+SECTION
+5.2375 2.333333333 0.75 0.9333333333 0.0 0 0 # Xle Yle Zle Chord Ainc Nspanwise Sspace
+AFILE
+Models\Airfoils\clark.dat

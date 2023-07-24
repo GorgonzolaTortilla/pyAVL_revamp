@@ -1,0 +1,38 @@
+Wing	sec1	sec2
+position    0   0   0
+angle   0
+xle	0	0
+yle	0	7.5
+zle	0	1.05405626
+chord	1.333333333	1.333333333
+airfoil	e423	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            
+
+
+
+
+
+
+HStab	
+position 0 0 0
+angle   0
+xle	5.2375	5.2375
+yle	0	2.333333333
+zle	0.75	0.75
+chord	0.9333333333	0.9333333333
+airfoil	Clark Y inverted	

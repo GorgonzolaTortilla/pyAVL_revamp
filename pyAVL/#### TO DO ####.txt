@@ -1,0 +1,52 @@
+#### TO DO ####
+
+=======================================
+Generator
+---------------------------------------
+        nothing for now
+
+
+
+
+
+
+=======================================
+Models
+---------------------------------------
+        nothing for now
+
+
+
+
+
+=======================================
+Scripts
+---------------------------------------
+todo    contemplate what to do for optimization and stability subclasses
+        -> optimization: need a locate() and mark() script (..._in_avl) 
+            to mark shit for optimization. sweep() function as well
+
+        -> stability: fuckin uhhh idk???? what is this subclass even for???
+            oh wait it was to auto-check the trim alpha and shit
+            -> which reminds me i need to create a library of locations for st,ft,etc.
+                outputs. maybe parse on the spot by running string + value in parallel?
+                idk what the output file looks like so i'll have to check that
+            -> also i just realized this file doesn't have an underscore in between py and AVL, so i need to
+                add that to have consistency. there's definitely inconsistencies all over the place
+                that i wont catch after i finish, but hopefully i'll have some sort of naming scheme
+
+
+
+
+
+
+
+
+=======================================
+pyAVL
+---------------------------------------
+todo    make sure it works lmfao
+        -> test input(), clear(), top(), oper(), etc.
+        -> redo the output files and write to a new folder,
+            maybe call it uhhh AVL_Output holy shit fuck yeah
+            that's perfect i'm a genius. i need to go to bed it's 4:42 am
