@@ -4,11 +4,14 @@
 #       1. geometry_file_to_string()
 #       2. surface_split_indices()
 #       3. locate_in_avl()  <--- ** W I P **
+#       4. parse() <--- ** W I P **
 #
 # Future Contents:
 #       Something to locate a parameter in an avl file and place
 #       brackets around it (mark for optimization). Will require a file,
 #       surface + parameter (or surface + section + parameter) 
+#
+#       the parse() function
 #
 # Function Descriptions:
 #       1. geometry_file_to_string()
@@ -34,7 +37,7 @@
 #               ".avl" file by the curly brackets, "{}", around a parameter. 
 #
 #       
-
+import numpy as np
 
 def geometry_file_to_string(filename = None):
     try:
@@ -66,9 +69,13 @@ def surface_split_indices(formatted_string):
     index.append(len(formatted_string))
     return index
 
-# def locate_in_avl(avl_file = None, keyword = ''):
-#     index = surface_split_indices(avl_file = '')
-#     pass
+def locate_in_avl(avl_file = None, surface_name = None, section = None, parameter = ''):
+    contents = open(f'{avl_file}').readlines()
+
+    pass
+
+def parse():
+    pass
 
 
 

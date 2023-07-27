@@ -22,17 +22,11 @@ class Surface():
             elif row[0] in surf_components:
                 match row[0]:
                     case 'position':
-                        print(row)
                         self.position = list(map(float,row[1:]))
-                        print(f'Position: {self.position}')
                     case 'angle':
-                        print(row)
                         self.angle = list(map(float,row[1:]))
-                        print(f'Angle: {self.angle}')
                     case 'xle':
-                        print(row)
                         self.xle = list(map(float,row[1:]))
-                        print(f'xle: {self.xle}')
                     case 'yle':
                         self.yle = list(map(float,row[1:]))
                     case 'zle':

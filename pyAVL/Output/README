@@ -1,0 +1,7 @@
+This is the standard output folder for pyAVL.
+The current pyAVL can output three file types:
+    - total forces (FT)
+    - stability derivatives (ST)
+    - body-axis derivatives (SB)
+
+pyAVL overwrites the existing output files.

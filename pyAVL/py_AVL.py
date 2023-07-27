@@ -12,9 +12,13 @@ def IsItWindows():
     return True if os.name == 'nt' else False
 
 class AVL:
+    ### Standard variables ###
+    plane_name = 'UNSPECIFIED'
+    inputList = ''
+
     ### Some initialization stuff. ###
     def __init__(self):
-        self.inputList = '' 
+        self.clear() 
         self.cd = os.getcwd()
         self.win = IsItWindows()
         if self.win:
@@ -39,6 +43,7 @@ class AVL:
     ### Commands for loading files and modifying parameters. ###
     def load_plane(self, plane): #Base
         self.input(f'load Models/Planes/{plane}/{plane}.avl')
+        self.plane_name = plane
 
     def load_mass(self,plane): #Base
         self.input(f'mass Models/Planes/{plane}/{plane}.mass')
@@ -62,16 +67,14 @@ class AVL:
         self.input(f'V {velocity}')
         self.top()
         
-    def saveOutput(self,output,name=0):
+    ### Commands for saving outputs ###
+    def save_output(self):
         self.input('MRF')
-        self.input(output)
-        if name == 0:
-            self.input('output.{}'.format(output))
-        else:
-            self.input('{}.{}'.format(name,output))
-        self.input('O\n')
+        self.input('ft Output/Total Forces\no')
+        self.input('st Output/Stability Derivatives\no')
+        self.input('sb Output/Body-Axis Derivatives\no')
 
-    ### The "RUN" command. ###
+    ### The command to run AVL. ###
     def run_avl(self): # opens avl and runs all of the stored commands
         self.AVLsp = subprocess.Popen(self.avlpath,
             shell=False,
