@@ -15,7 +15,7 @@ TRANSLATE
 SECTION
 0.0 0.0 0.0 1.333333333 0.0 0 0 # Xle Yle Zle Chord Ainc Nspanwise Sspace
 AFILE
-Models\Airfoils\E423.dat
+Models\Airfoils\e423.dat
 SECTION
 0.0 7.5 1.05405626 1.333333333 0.0 0 0 # Xle Yle Zle Chord Ainc Nspanwise Sspace
 AFILE
@@ -26,14 +26,14 @@ hstab
 YDUPLICATE
 0.0 # YDUPLICATE
 ANGLE
-10.000000000000002 # ANGLE
+{2} # ANGLE
 TRANSLATE
-0.0 0.0 0.0 # TRANSLATE
+0.0 {3} 0.0 # TRANSLATE
 SECTION
 5.2375 0.0 0.75 0.9333333333 0.0 0 0 # Xle Yle Zle Chord Ainc Nspanwise Sspace
 AFILE
-Models\Airfoils\clark y inverted.dat
+Models\Airfoils\clark.dat
 SECTION
 5.2375 2.333333333 0.75 0.9333333333 0.0 0 0 # Xle Yle Zle Chord Ainc Nspanwise Sspace
 AFILE
-Models\Airfoils\clark y inverted.dat
+Models\Airfoils\clark.dat

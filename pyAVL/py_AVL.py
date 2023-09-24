@@ -6,6 +6,7 @@ import subprocess
 import time
 import numpy as np
 import re
+from Scripts.parsing_scripts import locate_in_output
 
 def IsItWindows():
     """Return true if os is windows"""
@@ -13,12 +14,13 @@ def IsItWindows():
 
 class AVL:
     ### Standard variables ###
-    plane_name = 'UNSPECIFIED'
-    inputList = ''
-
+    input_list = ''
+    post_run_flags = {}
     ### Some initialization stuff. ###
     def __init__(self):
-        self.clear() 
+        self.post_run_flags = {}
+        self.store = []
+        self.clear()
         self.cd = os.getcwd()
         self.win = IsItWindows()
         if self.win:
@@ -26,12 +28,12 @@ class AVL:
         else:
             self.avlpath = f'{self.cd}/avl3.35'
 
-    ### Basic commands; you can do (almost) anything with these. ###
+    ### Basic commands; you can do anything(?) with these. ###
     def input(self,input):
-        self.inputList += f'{input}\n'
+        self.input_list += f'{input}\n'
 
     def clear(self):
-        self.inputlist = ''
+        self.input_list = ''
 
     def top(self):
         self.input('\n\n\n\n\n')
@@ -40,12 +42,31 @@ class AVL:
         self.top()
         self.input('oper')
 
+    ### The panic button. ###
+    def abort(self, error_message = 'UNSPECIFIED'):
+        self.clear()
+        self.input('quit')
+        print(f'ERROR: Aborting RUN due to error: {error_message}.')
+        quit()
+
     ### Commands for loading files and modifying parameters. ###
     def load_plane(self, plane): #Base
+        try: open(f'Models/Planes/{plane}/{plane}.avl')
+        except FileNotFoundError: 
+            print(f'ERROR: File "Models/Planes/{plane}/{plane}.avl" does not exist.') 
+            self.abort('there\'s no plane 💀')
+        except:
+            print('ERROR: Unknown error while loading plane. Please contact your nearest aero lead.')   
         self.input(f'load Models/Planes/{plane}/{plane}.avl')
         self.plane_name = plane
 
     def load_mass(self,plane): #Base
+        try: open(f'Models/Planes/{plane}/{plane}.mass')
+        except FileNotFoundError: 
+            print(f'ERROR: File "Models/Planes/{plane}/{plane}.mass" does not exist.') 
+            self.abort('mass brokey')
+        except:
+            print('ERROR: Unknown error while loading mass. Please contact your nearest aero lead.')  
         self.input(f'mass Models/Planes/{plane}/{plane}.mass')
         self.input('mset\n0')
 
@@ -67,7 +88,7 @@ class AVL:
         self.input(f'V {velocity}')
         self.top()
         
-    ### Commands for saving outputs ###
+    ### Commands for saving outputs. ###
     def save_output(self):
         self.input('MRF')
         self.input('ft Output/Total Forces\no')
@@ -75,20 +96,45 @@ class AVL:
         self.input('sb Output/Body-Axis Derivatives\no')
 
     ### The command to run AVL. ###
-    def run_avl(self): # opens avl and runs all of the stored commands
+    def run_avl(self, postrun = False): # opens avl and runs all of the stored commands
         self.AVLsp = subprocess.Popen(self.avlpath,
             shell=False,
             stdin=subprocess.PIPE,
             stdout=open('AVLsession.log', 'w'), # Put the output of this terminal into the open log file
             stderr=subprocess.PIPE)
-        self.AVLsp.stdin.write(self.inputList.encode('utf-8'))
+        self.AVLsp.stdin.write(self.input_list.encode('utf-8'))
         self.AVLsp.stdin.flush()
         self.AVLsp.communicate()
         self.clear()
+        if postrun == True:
+            self.post_run()
 
-    
+    ### Post-run commands ###
+    def post_run(self):
+        for flag in self.post_run_flags:
+            match flag:
+                case 'store':
+                    feed = self.post_run_flags[flag]
+                    self.store.append(locate_in_output(output_file = feed[0], value = feed[1]))
+                case 'trim':
+                    feed = self.post_run_flags[flag]
+                    print(f'Trim AoA: {locate_in_output(output_file = feed[0], value = feed[1])}')
+                case _:
+                    if flag is None:
+                        print('No post-run flags.')
+                    else:
+                        print(f'Unknown post-run flag "{flag}".')
 
+    ### Stability ###
+    def trim(self):
+        self.oper()
+        self.input('a pm 0')
+        self.input('x')
+        self.save_output()
+        self.post_run_flags['trim'] = ['Total Forces','Alpha']
+    pass
 
+    ### Optimization ###
 
     ### Unsorted. ###
     def load_opt_plane(self,plane): #Opt

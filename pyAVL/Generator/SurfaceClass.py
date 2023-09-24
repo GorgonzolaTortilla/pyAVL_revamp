@@ -17,6 +17,7 @@ class Surface():
         #Search the info dump and assign surface parameters.
         #I know this is ugly, but it's serviceable. 
         for row in info_dump:
+            print(row)
             if row in surf_keywords:
                 self.name = row
             elif row[0] in surf_components:
@@ -34,11 +35,18 @@ class Surface():
                     case 'chord':
                         self.chord = list(map(float,row[1:]))
                     case 'airfoil':
-                        self.airfoil = row[1]     
+                        airfoil = row[1]
+                        try:
+                            for x in row[2:]:
+                                airfoil += ' ' + x
+                        except:
+                            pass
+                        self.airfoil = airfoil
+
             else:
                 print(f'Unregonized keyword "{row[0]}" in first column; skipping row: {row}')
 
-    # This doesn't work well because it writes to the main directory and doesn't take a 
+    # This⬇⬇ doesn't work well because it writes to the main directory and doesn't take a 
     # Plane name because it's just a surface. Maybe the surfaces could be assigned a plane_name
     # at initialization?
 

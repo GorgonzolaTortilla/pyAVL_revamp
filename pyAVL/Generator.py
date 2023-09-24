@@ -18,9 +18,9 @@ def generate_avl(filename = 'Generator/Geometry', plane_name = 'a'):
             break
         elif surf == surfaces[-1]:
             template_avl(plane_name = plane_name)
-            print('Error: no ''wing'' found. Generating default template with:\n\
-                  Sref = 10.0, cref = 1.0, bref = 10.0\n\
-                  Please check your geometry file to ensure ''wing'' is present.')
+            print('Error: no "wing" found. Generating default template with:\n'+\
+                  'Sref = 10.0, cref = 1.0, bref = 10.0\n'+\
+                  'Please check your geometry file to ensure "wing" is present.')
         else: continue        
     #Go through surfaces and write each to AVL file
     for i,surf in enumerate(surfaces):

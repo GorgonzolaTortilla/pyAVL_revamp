@@ -1,0 +1,12 @@
+LOL AINT NOTHIN IN HERE 💀🔥🔥🔥
+
+I put imports inline instead of at the top of files, so don't freak out when there's imports 
+randomly put into the files. I found that there's no difference, so I tried to go back through the code
+and put all imports at the top, but there may be a few stragglers left behind. Please also know
+that I have yet to work on this library at a reasonable time of day with less than 400 mg of caffeine
+in my body.
+-------------
+
+
+Each subfolder in the pyAVL superfolder has a README with details regarding the subfolder. This README contains information regarding the
+contents of the pyAVL superfolder.

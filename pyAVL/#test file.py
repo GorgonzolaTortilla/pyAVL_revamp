@@ -1,6 +1,6 @@
-#test file
+#test file, for all your testing needs
 import numpy as np
-
+import re
 # I am currently resisting the urge to name my functions "vibe check"
 # or "cock check". I'm seriously trying to make all of this readable by
 # other people, which is why all the variables aren't named some variation
@@ -15,48 +15,77 @@ import numpy as np
 #     elif 'CDtot' in line:
 #         print(line.split()[0])
 
-### Locates (and marks?) parameters in avl file ###
-def locate_in_avl(plane_name = None, surface_name = None, section = None, parameter = ''):
-    try:
-        surface_name = surface_name.lower()
-    except AttributeError:
-        print('hit the mfin griddy bruh 💀💀💀💀💀')
-    avl_contents = (open(f'Models/Planes/{plane_name}/{plane_name}.avl').readlines())
-    formatted_contents = [x.strip().lower() for x in avl_contents]
-    from Scripts.keys import surf_keywords
-    surface_indices = [i for i,line in enumerate(formatted_contents) if line in surf_keywords]
-    try:
-        index = [i for i,surf_ind in enumerate(surface_indices) if formatted_contents[surf_ind] == surface_name][0]
-    except IndexError:
-        print('hell nah bruh you used the wrong surface name 😭')
-        return None
-    except:
-        print('some random bullshit happened idk tell an aero person')
-    surface_indices.append(len(avl_contents))
+# import numpy as np
+# a = np.array([17,18,4,3,2,1])
+# b = np.argsort(a)
+# print(b)
+# print(a[b])
+# print(*a)
 
-    # Search for the parameter
-    for i in range(surface_indices[index],surface_indices[index+1]):
-        if (parameter in formatted_contents[i]) & ('#' in formatted_contents[i]):
-            found_parameter = avl_contents[i].split(' ')
-            found_at_index = i
-            for i in range(len(found_parameter)):
-                pass
-            print('found it')
+# with open('Models/Planes/a/a.avl') as f:
+#     string = f.read()
+#     new_values = [2,3,7,8]
+#     string = re.sub('\{.*?\}','{{{}}}',string)
+#     string = string.format(*new_values)
+#     print(string)
 
-    # Once you find it
-    print(found_parameter)
-    found_parameter[0] = f'{{{found_parameter[0]}}}'
-    marked_parameter = ' '.join(found_parameter)
-    print(marked_parameter)
-    with open(f'Models/Planes/{plane_name}/{plane_name}.avl','w') as f:
-        avl_contents[found_at_index] = marked_parameter
-        print(avl_contents)
-        for str in avl_contents:
-            f.write(str)
-    print('end')
+# with open('Models/Planes/a/a.avl','w') as f:
+#     f.write(string)
 
-    
-    pass
+# array = ['a','b','c','d','e']
+# print(array.pop(0))
+# print(array)
 
-locate_in_avl(plane_name = 'a', surface_name = 'wing', parameter = 'angle')
+# x = 0
+# bool = False
+# x = 1
+# if x == 0:
+#     print('x is 0')
+# elif bool == False:
+#     print('bool is false')
 
+# from Scripts.parsing_scripts import *
+# plane_name = 'a'
+# avl = 1
+
+# str = '1.0'
+# float = float(str)
+# print(float)
+
+# dict = {}
+# dict['store'] = 5
+# print(dict) 
+
+# strings = (open('Output/Total Forces').readlines())
+# # for i,line in enumerate(strings):
+# #     if 'CLtot' in line:
+# #         print(line.split()[0])
+# #     elif 'CDtot' in line:
+# #         print(line.split()[0])
+# print(strings[7].split('|')[0].split().__len__())
+
+# from Scripts.parsing_scripts import locate_in_output
+# print(locate_in_output(output_file='Total Forces', value = 'Sref'))
+# post_run_flags = {}
+# post_run_flags['store'] = ['Total Forces','Alpha']
+# print(post_run_flags)
+# for flag in post_run_flags:
+#     print(flag)
+#     print(post_run_flags[flag])
+
+# for i in range(2):
+#     print(i)
+import numpy as np
+
+# a = np.array([2,3])
+# b = np.array([5,6])
+# print(b-a)
+
+start_values = [0,1]
+end_values = [10,2]
+N = 10
+start_values = np.array(float(start_values))
+end_values = (np.array(end_values))
+step = (end_values - start_values)/(N-1)
+new_values = start_values
+new_values += step

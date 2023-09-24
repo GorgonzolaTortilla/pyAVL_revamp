@@ -1,0 +1,12 @@
+AIRFOILS:   AVL refuses to recognize airfoils that contain an 'e' in their header,
+            probably cause it misinterprets it as an exponent. XFOIL doesn't have
+            this problem, so I have no idea what's going on. AVL claims that it
+            can use airfoil .dat files created from XFOIL's SAVE command, but 
+            this does not work if the airfoil header has an 'e' in it. 
+
+            Furthermore, airfoil file names are NOT case sensitive.
+
+            
+
+PLANES:     Each plane has a folder, with its .avl, .run, and .mass files. The .avl file should always have the same
+            name as the folder.

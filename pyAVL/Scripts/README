@@ -1,0 +1,17 @@
+These scripts contain important pyAVL parsing and formatting functions, as well
+as the py_AVL optimization and stability subclasses.
+
+This file contains the documentation for each .py file in the Scripts folder,
+organized by .py file. 
+
+Current folder contents:
+    -keys.py
+    -parsing_scripts.py
+    -py_AVL_optimization.py
+    -py_AVL_stability.py
+
+Most pyAVL files import functions using the following:
+    from Scripts.[Python file] import [function name]
+
+DOCUMENTATION  
+

@@ -23,17 +23,37 @@ Models
 Scripts
 ---------------------------------------
 todo    contemplate what to do for optimization and stability subclasses
-        -> optimization: need a locate() and mark() script (..._in_avl) 
-            to mark shit for optimization. sweep() function as well
 
-        -> stability: fuckin uhhh idk???? what is this subclass even for???
+    DONE--> optimization: need a locate() and mark() script (..._in_avl) 
+            to mark shit for optimization. sweep() function as well
+        DONE--> locate(): make it work for the rows of variables (see how many are in the row after '#' and find the parameter name's position)
+        DONE--> locate(): check for {} before writing to prevent stacking brackets
+        DONE--> properly initialize subclass to include py_AVL methods and save "variable template"
+                to self when initialized. Will require a marked avl file, so need to check for that first
+            DONE--> figure out the super() thing or whatever it was to inherit all parent stuff
+            DONE--> Need something to actually take the variable template and write shit to the brackets
+
+        --> stability: fuckin uhhh idk???? what is this subclass even for???
             oh wait it was to auto-check the trim alpha and shit
-            -> which reminds me i need to create a library of locations for st,ft,etc.
+        DONE--> which reminds me i need to create a library of locations for st,ft,etc.
                 outputs. maybe parse on the spot by running string + value in parallel?
                 idk what the output file looks like so i'll have to check that
-            -> also i just realized this file doesn't have an underscore in between py and AVL, so i need to
+            DONE--> okay so i dont need to actually create a "locations" library, cause
+                    it's really easy to just search for keywords like CLtot and such. but sometimes
+                    we want alpha from a total forces file
+                DONE--> also applies to locate(), i need something that can read [number, delimiter, keyword] formats.
+                        call it parse()?
+        DONE--> Create the trim() function
+            DONE--> Do the super() shit
+        DONE--> also i just realized this file doesn't have an underscore in between py and AVL, so i need to
                 add that to have consistency. there's definitely inconsistencies all over the place
                 that i wont catch after i finish, but hopefully i'll have some sort of naming scheme
+        NOPE--> create a function that runs after "run_avl()" (feed it a list of functions?? or just some flags
+                to tell it what to run?) to auto print trim alpha and shit (could do this for any value). There's
+                already something in test file for retrieving a value from an output file, but it only does cltot 
+                and cdtot which are both pretty shrimple. 
+            --> I didn't even read the above section. I'm just gonna put the shit in the RUN file in a loop. shrimple
+                as that. Then create a growing array that stores the outputted value(s)
 
 
 
@@ -45,8 +65,54 @@ todo    contemplate what to do for optimization and stability subclasses
 =======================================
 pyAVL
 ---------------------------------------
-todo    make sure it works lmfao
-        -> test input(), clear(), top(), oper(), etc.
-        -> redo the output files and write to a new folder,
+DONE    make sure it works lmfao
+    DONE--> test input(), clear(), top(), oper(), etc.
+    DONE--> redo the output files and write to a new folder,
             maybe call it uhhh AVL_Output holy shit fuck yeah
             that's perfect i'm a genius. i need to go to bed it's 4:42 am
+
+        optimization template initializer?
+    DONE--> Need: self.template that stores the string with the brackets i think?
+            need this because otherwise you need to read the file again and find the brackets
+            again. in "#test file" there's the function to do the writing to the marked variables
+            (string = re.sub('\{.*?\}','{{{}}}',string)) <- this creates the template.
+            Okay that's shmeezy peezy.
+
+        Something to update reference values (this will come a bit later)
+        --> will need to locate the values for Sref, Bref, Cref and update them in the .avl file.
+            Can use the same framework of the locate_in_avl() function, maybe have a 'mark' mode
+            or simple 'update' mode. Alternatively i can just copy-paste the hunk of code to locate 
+            the values. Although, this would involve tearing the Generator code and locate_in_avl code 
+            and creating a frankenstein mess of a ref value calculator for MAC. 
+            --> Nope, just need to get the new values then use locate_in_avl() to find where i need to 
+                write the new values to
+                --> locate yle, chord
+                --> calculate sref, bref, Cref
+                --> locate old sref, bref, Cref
+                --> change sref, bref, Cref
+                --> rewrite to avl file
+
+    DONE--> okay need to update the locate_in_avl() to throw an exception when section # exceeds actual no. of
+            sections
+        DONE--> umm how tf does locate_in_avl() work again... holy shit this thing is awful.
+                it doesn't actually check if there's a "SECTION" keyword, it just matches the no. of appearancves of the searched parameter.
+                this is so breakable holy shit... but does it need to be improved? okay added a message if parameter doesnt appear at all...
+                but is there even a chance that it appears in section 2 and not section 1? probably not, cause generator has some
+                redundancy i think? and does all the sections the same i hope.
+        DONE--> hold up, once section number exceeds actual no. of existent sections, it throws the "parameter doesnt exist" error.
+                need to restructure this stuff.
+
+        
+        Something to update marked values. 
+    DONE--> Can use regexp.sub()? though this probably only works for one at a time (as far as i understand re (not at all))
+            might need to organize the changed variables into a specific order so you can feed them into sub(), which will require a 
+            dictionary to sort shit (np.argsort? vardict?)
+        NOPE--> investigate np.argsort
+        --> Have to a way to view what your current marked variables are and 
+            what order to feed them into the "new_values" variable
+            --> have something to auto sort them into proper order
+
+DONE    how to make abort() cut the entire thing short
+    DONE--> could just have a check at the end? no cause that would cause all the error
+            messages to appear anyway, which is what i was trying to limit. probably
+            just try "quit()" after displaying an error message
