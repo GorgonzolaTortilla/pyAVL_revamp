@@ -1,10 +1,10 @@
 Wing	sec1	sec2
 position    0   0   0
 angle   0
-xle	0	0
-yle	0	7.5
-zle	0	1.05405626
-chord	1.333333333	1.333333333
+xle	0	0 0.125
+yle	0	2.5 8
+zle	0	0 0
+chord	1.25 1.25 0.75
 airfoil	e423	
 
 

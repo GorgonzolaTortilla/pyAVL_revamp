@@ -1,7 +1,7 @@
 a
 0.0 # Mach
 0 0 0 # IYsym IZsym Zsym
-19.999999995 1.333333333 15.0 # Sref Cref Bref
+17.25 1.103864734299517 16.0 # Sref Cref Bref
 0.5 0.0 0.1 # Xref Yref Zref
 SURFACE
 wing
@@ -13,11 +13,15 @@ ANGLE
 TRANSLATE
 0.0 0.0 0.0 # TRANSLATE
 SECTION
-0.0 0.0 0.0 1.333333333 0.0 0 0 # Xle Yle Zle Chord Ainc Nspanwise Sspace
+0.0 0.0 0.0 1.25 0.0 0 0 # Xle Yle Zle Chord Ainc Nspanwise Sspace
 AFILE
-Models\Airfoils\E423.dat
+Models\Airfoils\e423.dat
 SECTION
-0.0 7.5 1.05405626 1.333333333 0.0 0 0 # Xle Yle Zle Chord Ainc Nspanwise Sspace
+0.0 6.0 0.0 1.25 0.0 0 0 # Xle Yle Zle Chord Ainc Nspanwise Sspace
+AFILE
+Models\Airfoils\e423.dat
+SECTION
+0.125 8.0 0.0 0.75 0.0 0 0 # Xle Yle Zle Chord Ainc Nspanwise Sspace
 AFILE
 Models\Airfoils\e423.dat
 SURFACE
@@ -26,7 +30,7 @@ hstab
 YDUPLICATE
 0.0 # YDUPLICATE
 ANGLE
-10.000000000000002 # ANGLE
+0.0 # ANGLE
 TRANSLATE
 0.0 0.0 0.0 # TRANSLATE
 SECTION

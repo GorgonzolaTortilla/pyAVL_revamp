@@ -78,10 +78,11 @@ class Surface():
         for i in range(len(self.yle)-1):
             y1 = self.yle[i]
             c1 = self.chord[i]
+            c2 = self.chord[i+1]
             dy = self.yle[i+1] - y1
-            taper = self.chord[i+1]/c1
-            m = (taper - 1)/dy
-            cref += 2/sref*( c1**2*( m**2/3*dy**3 + (m - y1*m**2)*dy**2 + (1 - y1*m)**2*dy) )
+            m = (c2 - c1)/dy
+            cref += 2/sref*(m**2/3*dy**3 + c1*m*dy**2+c1**2*dy)
+            # cref += 2/sref*( c1**2*( m**2/3*dy**3 + (m - y1*m**2)*dy**2 + (1 - y1*m)**2*dy) )
         return sref, cref, bref 
         
 def template_avl(plane_name,\

@@ -164,7 +164,7 @@ def mark_in_avl(plane_name = None, surface_name = None, section_number = None, p
         for str in avl_contents:
             f.write(str)
     #Print result
-    print(f'Marked parameter "{parameter}" in section {section_number}: "{marked_parameter.strip()}"')
+    print(f'Marked parameter "{parameter}" in surface {surface_name}, section {section_number}: "{marked_parameter.strip()}"')
 
 def locate_in_line(line = None, search_word = None):
     search_word = search_word.lower()

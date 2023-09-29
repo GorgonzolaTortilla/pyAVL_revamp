@@ -32,7 +32,8 @@
  Configuration: a                                                           
 
    Building surface: wing                                    
-     Reading airfoil from file: Models\Airfoils\E423.dat
+     Reading airfoil from file: Models\Airfoils\e423.dat
+     Reading airfoil from file: Models\Airfoils\e423.dat
      Reading airfoil from file: Models\Airfoils\e423.dat
   
    Building duplicate image-surface: wing (YDUP)                             

@@ -6,7 +6,7 @@ import subprocess
 import time
 import numpy as np
 import re
-from Scripts.parsing_scripts import locate_in_output
+from Scripts.parsing_scripts import *
 
 def IsItWindows():
     """Return true if os is windows"""
@@ -81,7 +81,7 @@ class AVL:
         self.input(f'D {(atmo.temperature[0]/(atmo.temperature[0]+temp_offset))*atmo.density[0]/515.378819}')
         self.top()
 
-    def setVelocity(self, velocity): #Base
+    def set_velocity(self, velocity): #Base
         self.oper()
         self.input('M')
         self.input('G 32.17')  
@@ -135,6 +135,80 @@ class AVL:
     pass
 
     ### Optimization ###
+    def initialize_template(self):
+        try:
+            avl_contents = open(f'Models/Planes/{self.plane_name}/{self.plane_name}.avl').read()
+        except AttributeError:
+            print('ERROR: Please load a plane using "load_plane()" before creating template.')
+        except FileNotFoundError:
+            print(f'ERROR: File "Models/Planes/{self.plane_name}/{self.plane_name}.avl" does not exist. '+\
+                  r'If you see this error message, tell an aero lead, cause something went wrong with py_AVL lmfao')
+                    #If you see ⬆ this ⬆ message, the plane properly loaded in AVL but either self.plane_name didn't assign
+                    #properly or just failed to open using this function. This shouldn't happen but it's here for debugging.
+        self.template = re.sub('\{.*?\}','{}',avl_contents)
+
+    def update_reference(self, surface):
+        #What i need:
+        #all yle
+        #all chord
+        #that's it?? seems shrimple
+        yle = []
+        chord = []
+        section_number = 0
+        while(True):
+            section_number += 1
+            try:
+                value = float(locate_in_avl(plane_name = self.plane_name, surface_name = surface, section_number = section_number, parameter = 'yle', mute = True)[0])
+                yle.append(value)
+                value = float(locate_in_avl(plane_name = self.plane_name, surface_name = surface, section_number = section_number, parameter = 'chord', mute = True)[0])
+                chord.append(value)
+            except TypeError:
+                #This occurs when locate_in_avl() returns an error code, typically to exit the while loop when no more sections are encountered.
+                break
+            except:
+                print(f'Unknown error in "update_references": failed to assign value "{value}". See "update_reference()" function for details.')
+                #This means that locate_in_avl() returned something other than the expected array or integer error code.
+                #I don't think that's possible, but worth having the exception.
+        print(f'yle: {yle}, chord: {chord}')
+        sref = 0
+        cref = 0
+        bref = 2*yle[-1]
+        for i in range(len(yle)-1):
+            sref += (yle[i+1]-yle[i])*(chord[i]+chord[i+1])
+        for i in range(len(yle)-1):
+            y1 = yle[i]
+            c1 = chord[i]
+            c2 = chord[i+1]
+            dy = yle[i+1] - y1
+            m = (c2 - c1)/dy
+            cref += 2/sref*(m**2/3*dy**3 + c1*m*dy**2+c1**2*dy)     
+        print(f'Done updating refs: Cref = {cref}, Sref = {sref}, Bref = {bref}')
+
+    def update_variables(self,new_values):
+        new_contents = self.template.format(*new_values)
+        with open(f'Models/Planes/{self.plane_name}/{self.plane_name}.avl','w') as f:
+            f.write(new_contents)
+
+    def parameter_sweep(self, start_values = None, end_values = None, N = None):
+        #Takes:     start_values is an array containing the starting values for all marked parameters: [param_1, param_2,... param_n]
+        #           end_values is an array containing the ending values for all marked parameters: [param_1, param_2,... param_n]    
+        #           N is an integer for total number of values tested.
+        #Returns:   NOTHIN 🔥🔥🔥🔥 jk it stores an indicated value in the self.store for scrutiny 🤓
+        start_values = np.array(list(map(float,start_values)))
+        end_values = np.array(list(map(float,end_values)))
+        step = (end_values - start_values)/(N-1)
+        new_values = start_values
+        temp_list = self.input_list
+        self.clear()
+        for i in range(N):
+            print(f'Trying values: {new_values}')
+            self.update_variables(new_values)
+            self.update_reference(surface = 'wing')
+            self.load_plane(self.plane_name)
+            self.trim()
+            self.run_avl(postrun = True)
+            new_values += step
+        self.input_list = temp_list
 
     ### Unsorted. ###
     def load_opt_plane(self,plane): #Opt
